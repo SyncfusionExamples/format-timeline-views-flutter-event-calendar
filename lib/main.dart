@@ -4,71 +4,28 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 void main() => runApp(TimelineViewsDateTimeFormat());
 
-class TimelineViewsDateTimeFormat extends StatefulWidget {
-  @override
-  TimelineViewsDateTimeFormatState createState() =>
-      TimelineViewsDateTimeFormatState();
-}
-
-List<String> _views = <String>[
-  'TimelineDay',
-  'TimelineWeek',
-  'TimelienWorkWeek',
-  'TimelineMonth'
-];
-
-class TimelineViewsDateTimeFormatState extends State<TimelineViewsDateTimeFormat> {
-  CalendarController _calendarController;
-  TimeSlotViewSettings timeSlotViewSettings;
-
-  @override
-  void initState() {
-    _calendarController = CalendarController();
-    super.initState();
-  }
-
+class TimelineViewsDateTimeFormat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-            appBar: AppBar(
-              leading: PopupMenuButton<String>(
-                icon: Icon(Icons.calendar_today),
-                itemBuilder: (BuildContext context) =>
-                    _views.map((String choice) {
-                  return PopupMenuItem<String>(
-                    value: choice,
-                    child: Text(choice),
-                  );
-                }).toList(),
-                onSelected: (String value) {
-                  setState(() {
-                    if (value == 'TimelineDay') {
-                      _calendarController.view = CalendarView.timelineDay;
-                      timeSlotViewSettings=TimeSlotViewSettings(dayFormat: 'EEE', dateFormat: 'dd', timeFormat: 'hh:mm a');
-                    } else if (value == 'TimelineWeek') {
-                      _calendarController.view = CalendarView.timelineWeek;
-                      timeSlotViewSettings=TimeSlotViewSettings(dayFormat: 'EEE', dateFormat: 'dd', timeFormat: 'hh:mm a');
-                    } else if (value == 'TimelimeWorkWeek') {
-                      _calendarController.view = CalendarView.timelineWorkWeek;
-                      timeSlotViewSettings=TimeSlotViewSettings(dayFormat: 'EEE', dateFormat: 'dd', timeFormat: 'hh:mm a');
-                    } else if (value == 'TimelineMonth') {
-                      _calendarController.view = CalendarView.timelineMonth;
-                      timeSlotViewSettings=TimeSlotViewSettings(dayFormat: 'EEEE');
-                    }
-                  });
-                },
-              ),
+          body: SafeArea(
+            child: SfCalendar(
+              view: CalendarView.timelineDay,
+              allowedViews: <CalendarView>[
+                CalendarView.timelineDay,
+                CalendarView.timelineWeek,
+                CalendarView.timelineWorkWeek,
+                CalendarView.timelineMonth
+              ],
+              dataSource: _getDataSource(),
+              monthViewSettings: MonthViewSettings(showAgenda: true),
+              timeSlotViewSettings: TimeSlotViewSettings(
+                  dayFormat: 'EEEE', dateFormat: 'dd', timeFormat: 'hh:mm a'),
             ),
-            body: SafeArea(
-              child: SfCalendar(
-                controller: _calendarController,
-                dataSource: _getDataSource(),
-                monthViewSettings: MonthViewSettings(showAgenda: true),
-                timeSlotViewSettings: timeSlotViewSettings
-              ),
-            )));
+          ),
+        ));
   }
 
   _DataSource _getDataSource() {
