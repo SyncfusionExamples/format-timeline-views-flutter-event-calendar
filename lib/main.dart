@@ -20,7 +20,6 @@ class TimelineViewsDateTimeFormat extends StatelessWidget {
                 CalendarView.timelineMonth
               ],
               dataSource: _getDataSource(),
-              monthViewSettings: MonthViewSettings(showAgenda: true),
               timeSlotViewSettings: TimeSlotViewSettings(
                   dayFormat: 'EEEE', dateFormat: 'dd', timeFormat: 'hh:mm a'),
             ),
