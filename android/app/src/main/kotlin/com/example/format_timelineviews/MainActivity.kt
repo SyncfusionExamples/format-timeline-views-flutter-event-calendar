@@ -1,4 +1,4 @@
-package com.example.flutter_datetimeformat_custom
+package com.example.format_timelineviews
 
 import io.flutter.embedding.android.FlutterActivity
 
